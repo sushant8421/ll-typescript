@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: practice-tsc-lld
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: parking-lot-deployment
+  namespace: practice-tsc-lld
+  labels:
+    app: parking-lot
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: parking-lot
+  template:
+    metadata:
+      labels:
+        app: parking-lot
+    spec:
+      containers:
+        - name: parking-lot
+          image: sushant8421/parking-lot:latest
+          ports:
+            - containerPort: 2700
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: parking-lot-service
+  namespace: practice-tsc-lld
+spec:
+  type: LoadBalancer
+  selector:
+    app: parking-lot
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 2700
