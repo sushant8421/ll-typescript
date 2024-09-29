@@ -1,7 +1,7 @@
 // create express server listening on port 2700
 import express, { Request, Response } from "express";
 import bodyParser from "body-parser";
-import parkingLot from "./index";
+import parkingLot from "./parking-lot/index";
 
 const app = express();
 app.use(bodyParser.json());
